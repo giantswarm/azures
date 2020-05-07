@@ -1,5 +1,13 @@
 package v1alpha1
 
+const (
+	ExternalTrafficPolicyCluster = "Cluster"
+	ExternalTrafficPolicyLocal   = "Local"
+
+	LoadBalancerTypeInternal = "internal"
+	LoadBalancerTypePublic   = "public"
+)
+
 type Cluster struct {
 	Calico     ClusterCalico     `json:"calico"`
 	Customer   ClusterCustomer   `json:"customer"`
@@ -68,6 +76,18 @@ type ClusterKubernetesIngressController struct {
 	WildcardDomain string                                   `json:"wildcardDomain"`
 	InsecurePort   int                                      `json:"insecurePort"`
 	SecurePort     int                                      `json:"securePort"`
+	// +kubebuilder:validation:Optional
+	// +kubebuilder:default=public
+	// +kubebuilder:validation:Enum=internal;public
+	// The LoadBalancerType property allows to choose the type of the LoadBalancer to be deployed.
+	// Can be either "internal" or "public" and it is supported on Azure tenant clusters only.
+	LoadBalancerType string `json:"loadBalancerType"`
+	// +kubebuilder:validation:Optional
+	// +kubebuilder:default=Local
+	// +kubebuilder:validation:Enum=Cluster;Local
+	// The ExternalTrafficPolicy property is used to set the homonym property of the Kubernetes Service
+	// used by the Nginx Ingress Controller.
+	ExternalTrafficPolicy string `json:"externalTrafficPolicy"`
 }
 
 type ClusterKubernetesIngressControllerDocker struct {

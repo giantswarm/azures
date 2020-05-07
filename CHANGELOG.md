@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- ClusterKubernetesIngressController added LoadBalancerType.
+- ClusterKubernetesIngressController added ExternalTrafficPolicy.
+
 ## [0.3.6] 2020-05-07
 
 ### Changed
